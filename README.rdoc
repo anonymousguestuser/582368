@@ -2,4 +2,4 @@
 
 Ratebeer
 
-<a href="http://pacific-crag-3807.herokuapp.com/breweries">Heroku instance</a>
+Heroku instance: http://pacific-crag-3807.herokuapp.com/breweries
