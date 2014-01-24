@@ -1,6 +1,6 @@
 class Beer < ActiveRecord::Base
   belongs_to :brewery
-  has_many :ratings
+  has_many :ratings, :dependent => :destroy
 
   def average_rating
     #avg = 0.0
@@ -11,6 +11,10 @@ class Beer < ActiveRecord::Base
 
     ratings.average('score').round(2)
 
+  end
+
+  def to_s
+    self.name + ' ' + self.brewery.name
   end
 
 end
