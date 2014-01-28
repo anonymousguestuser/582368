@@ -1,7 +1,9 @@
 Ratebeer::Application.routes.draw do
-  resources :beers
+  resources :users
 
+  resources :beers
   resources :breweries
+  resources :sessions, only: [:new, :create]
 
   root 'breweries#index'
   #get 'kaikki_bisset', to: 'beers#index'
@@ -15,6 +17,9 @@ Ratebeer::Application.routes.draw do
   #get 'beers/new', to:'beers#new'
   #post 'beers', to: 'beers#create'
 
+  get 'signup', to: 'users#new'
+  get 'signin', to: 'sessions#new'
+  delete 'signout', to: 'sessions#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
