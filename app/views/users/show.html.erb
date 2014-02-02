@@ -4,16 +4,37 @@
   <h1><%= @user.username %></h1>
 </p>
 has made <%= pluralize(@user.ratings.count,'rating') %>
+
+<% unless @user.beer_clubs.empty? %>
+<p>
+member of
+  <% @user.beer_clubs.each do |club| %>
+            <%= link_to club, beer_club_path(club)  %>
+  <% end %>
+</p>
+<% else %>
+<p>
+no club memberships
+</p>
+<% end %>
+
+<% unless @user.ratings.empty? %>
 <p><h2>ratings</h2></p>
 
 <ul>
   <% @user.ratings.each do |rating| %>
-      <li> <%= rating %> <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?'} %> </li>
-
+      <li>
+        <%= rating %>
+        <% if @user == current_user %>
+            <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </li>
   <% end %>
 </ul>
+<% end %>
 
 <p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path %> |
+<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
 </p>
