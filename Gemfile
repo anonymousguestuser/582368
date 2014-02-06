@@ -58,3 +58,12 @@ end
 gem 'byebug', group: [:development, :test]
 
 gem 'bcrypt-ruby', '~> 3.1.2'
+
+group :test do
+  gem 'rspec-rails', '~> 2.14.1'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+end
+
+gem 'simplecov', require: false
