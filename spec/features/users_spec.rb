@@ -4,7 +4,7 @@ include OwnTestHelper
 
 describe "User" do
   before :each do
-    FactoryGirl.create :user
+    @user = FactoryGirl.create :user
   end
 
   describe "who has signed up" do
@@ -28,17 +28,39 @@ describe "User" do
       user2 = FactoryGirl.create :user, username:"Matti"
       FactoryGirl.create :rating, beer:Beer.last, score:40, user:user2
 
-      FactoryGirl.create :rating, beer:Beer.first, user:User.first
-      FactoryGirl.create :rating, beer:Beer.last, user:User.first
+      FactoryGirl.create :rating, beer:Beer.first, user:@user
+      FactoryGirl.create :rating, beer:Beer.last, user:@user
 
       sign_in(username:"Pekka", password:"Foobar")
-      visit user_path(User.first)
+      visit user_path(@user)
 
       expect(page).to have_content "has made 2 ratings"
       expect(Rating.count).to eq(3)
-      expect(page).to have_content User.first.ratings.first.to_s
-      expect(page).to have_content User.first.ratings.last.to_s
+      expect(page).to have_content @user.ratings.first.to_s
+      expect(page).to have_content @user.ratings.last.to_s
       expect(page).not_to have_content Beer.last.name + " 40"
+
+    end
+
+    describe "who has signed in" do
+
+      before :each do
+        sign_in(username:"Pekka", password:"Foobar1")
+      end
+
+      it "can change password" do
+      visit edit_user_path(@user)
+      fill_in('user[password]', with:'Salainen1')
+      fill_in('user[password_confirmation]', with:'Salainen1')
+
+      expect{
+        click_button "Update User"
+      }.to change{current_path}.from(edit_user_path(@user)).to(user_path(@user))
+
+      expect(current_path).to eq(user_path(@user))
+      expect(page).to have_content "User was successfully updated."
+
+      end
 
     end
 

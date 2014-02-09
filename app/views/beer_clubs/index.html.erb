@@ -18,8 +18,8 @@
         <td><%= link_to beer_club.name, beer_club %></td>
         <td><%= beer_club.founded %></td>
         <td><%= beer_club.city %></td>
-        <td><%= link_to 'Edit', edit_beer_club_path(beer_club) %></td>
-        <% if defined? current_user.is_admin and current_user.is_admin %>
+        <td><%= link_to 'Edit', edit_beer_club_path(beer_club) if current_user and current_user.admin%></td>
+        <% if current_user and current_user.admin %>
           <td><%= link_to 'Destroy', beer_club, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
@@ -29,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Beer club', new_beer_club_path %>
+<%= link_to 'New Beer club', new_beer_club_path if current_user%>

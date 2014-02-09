@@ -24,4 +24,10 @@ FactoryGirl.define do
     style "Lager"
   end
 
+  factory :beer_club do
+    name "Ohranjyvän kantikset"
+    city "Tampere"
+    founded 1970
+  end
+
 end

@@ -24,4 +24,20 @@ describe "Rating" do
     expect(beer1.ratings.count).to eq(1)
     expect(beer1.average_rating).to eq(15.0)
   end
+
+  it "is removed when user deletes it" do
+    FactoryGirl.create :rating, beer:beer2, score:36, user:user
+    FactoryGirl.create :rating, beer:beer1, score:12, user:user
+    FactoryGirl.create :rating, beer:beer2, score:1, user:user
+
+    visit user_path(user)
+    expect{
+      page.all('a')[10].click
+    }.to change{Rating.count}.from(3).to(2)
+
+    expect(page).to have_content "has made 2 ratings"
+    expect(page).not_to have_content "iso 3"
+    expect(user.ratings.count).to eq(2)
+
+  end
 end

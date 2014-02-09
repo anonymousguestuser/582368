@@ -16,6 +16,9 @@ describe "Breweries page" do
         FactoryGirl.create(:brewery, name: brewery_name, year: year += 1)
       end
 
+      FactoryGirl.create :user
+      sign_in(username:"Pekka", password:"Foobar1")
+
       visit breweries_path
     end
 
@@ -31,6 +34,21 @@ describe "Breweries page" do
 
       expect(page).to have_content "Koff"
       expect(page).to have_content "Established year: 1897"
+    end
+
+    it "allows user to create a new brewery" do
+      sign_in(username:"Pekka", password:"Foobar1")
+      visit breweries_path
+
+      click_link "New Brewery"
+      fill_in('brewery[name]', with:'Belhaven')
+      fill_in('brewery[year]', with:'1800')
+
+      expect{
+        click_button "Create Brewery"
+      }.to change{Brewery.count}.from(3).to(4)
+      expect(Brewery.last.name).to eq("Belhaven")
+
     end
 
   end

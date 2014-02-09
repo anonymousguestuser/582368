@@ -19,6 +19,28 @@ class User < ActiveRecord::Base
     ratings.order(score: :desc).limit(1).first.beer
   end
 
+  def favorite_style
+    return nil if ratings.empty?
+    favorites = {}
+    by_styles = ratings.group_by{|r| r.beer.style}
+    by_styles.keys.each{ |style|
+      favorites[style] = average_rating_from_array(by_styles[style])
+    }
+    favorites.select{|k,v| v == favorites.values.max}.keys
+
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?
+    favorites = {}
+    by_breweries = ratings.group_by{|r| r.beer.brewery}
+    by_breweries.keys.each{ |brewery|
+      favorites[brewery] = average_rating_from_array(by_breweries[brewery])
+    }
+    favorites.select{|k,v| v == favorites.values.max}.keys
+  end
+
+
 
   def password_follows_format
     unless password.blank? or password.index(/[[:upper:]]/)

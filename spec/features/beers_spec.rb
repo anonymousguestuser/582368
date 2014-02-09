@@ -3,6 +3,8 @@ require 'spec_helper'
 describe "Beers" do
   before :each do
     FactoryGirl.create :brewery
+    FactoryGirl.create :user
+    sign_in(username:"Pekka", password:"Foobar1")
   end
 
   it "is created when valid name has been given" do

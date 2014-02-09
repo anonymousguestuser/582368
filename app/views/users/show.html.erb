@@ -18,6 +18,28 @@ no club memberships
 </p>
 <% end %>
 
+<% unless @user.favorite_style.nil? %>
+<p><h2>favorite <%= 'style'.pluralize(@user.favorite_style.size)%></h2></p>
+<ul>
+    <% @user.favorite_style.each do |style|%>
+        <li>
+          <%= style %>
+        </li>
+        <% end %>
+    <% end %>
+</ul>
+
+<% unless @user.favorite_brewery.nil? %>
+    <p><h2>favorite <%= 'brewery'.pluralize(@user.favorite_brewery.size)%></h2></p>
+    <ul>
+      <% @user.favorite_brewery.each do |brewery|%>
+          <li>
+            <%= brewery.name %>
+          </li>
+      <% end %>
+<% end %>
+</ul>
+
 <% unless @user.ratings.empty? %>
 <p><h2>ratings</h2></p>
 
