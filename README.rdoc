@@ -3,5 +3,5 @@
 Ratebeer
 
 Heroku instance: http://pacific-crag-3807.herokuapp.com/breweries
-[![Build Status](https://travis-ci.org/anonymousguestuser/582368.png)](https://api.travis-ci.org/anonymousguestuser/582368)
-[![Code Climate](https://codeclimate.com/github/anonymousguestuser/582368.png)](https://codeclimate.com/github/anonymousguestuser/582368)
+{<img src="https://travis-ci.org/anonymousguestuser/582368.png) />"}[https://api.travis-ci.org/anonymousguestuser/582368]
+{<img src="https://codeclimate.com/github/anonymousguestuser/582368.png" />}[https://codeclimate.com/github/anonymousguestuser/582368]
