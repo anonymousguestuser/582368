@@ -1,6 +1,26 @@
 <h1>Editing beer</h1>
 
-<%= render 'form' %>
+
+<%= form_for(@beer) do |f| %>
+    <% if @beer.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@beer.errors.count, "error") %> prohibited beer from being saved:</h2>
+
+          <ul>
+            <% @beer.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= f.text_field :name %><br>
+    Style:<br>
+    <%= f.select :style, options_from_collection_for_select(@styles, :to_s, :to_s, selected: @beer.style) %><br>
+    <%= f.submit %>
+
+<% end %>
+
 
 <%= link_to 'Show', @beer %> |
 <%= link_to 'Back', beers_path %>

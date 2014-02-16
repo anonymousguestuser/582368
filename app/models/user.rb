@@ -20,26 +20,22 @@ class User < ActiveRecord::Base
   end
 
   def favorite_style
-    return nil if ratings.empty?
-    favorites = {}
-    by_styles = ratings.group_by{|r| r.beer.style}
-    by_styles.keys.each{ |style|
-      favorites[style] = average_rating_from_array(by_styles[style])
-    }
-    favorites.select{|k,v| v == favorites.values.max}.keys
-
+    self.favorite(:style)
   end
 
   def favorite_brewery
+    self.favorite(:brewery)
+  end
+
+  def favorite(category)
     return nil if ratings.empty?
     favorites = {}
-    by_breweries = ratings.group_by{|r| r.beer.brewery}
-    by_breweries.keys.each{ |brewery|
-      favorites[brewery] = average_rating_from_array(by_breweries[brewery])
+    by_category = ratings.group_by{|r| r.beer.send(category) }
+    by_category.keys.each { |item|
+      favorites[item] = average_rating_from_array(by_category[item])
     }
     favorites.select{|k,v| v == favorites.values.max}.keys
   end
-
 
 
   def password_follows_format
