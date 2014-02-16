@@ -1,0 +1,24 @@
+<h1>Listing styles</h1>
+
+<table>
+<thead>
+<tr>
+  <th>Style</th>
+  <th>Number of beers</th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+
+<tbody>
+<% @styles.sort_by{|i| i.name}.each do |style| %>
+    <tr>
+      <td><%= link_to style.name , style %></td>
+      <td><%= style.beers.size %></td>
+      <td><%= link_to 'Edit', edit_style_path(style) if current_user and current_user.admin? %></td>
+      <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' } if current_user and current_user.admin%></td>
+    </tr>
+<% end %>
+</tbody>
+</table>
