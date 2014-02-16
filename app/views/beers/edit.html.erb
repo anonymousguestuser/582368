@@ -1,6 +1,5 @@
 <h1>Editing beer</h1>
 
-
 <%= form_for(@beer) do |f| %>
     <% if @beer.errors.any? %>
         <div id="error_explanation">
@@ -16,7 +15,7 @@
 
     <%= f.text_field :name %><br>
     Style:<br>
-    <%= f.select :style_id, options_from_collection_for_select(@styles, 'id', :to_s, selected: @beer.style) %><br>
+    <%= f.select :style_id, options_from_collection_for_select(@styles, 'id', :to_s, selected: @beer.style.id) %><br>
     <%= f.submit %>
 
 <% end %>

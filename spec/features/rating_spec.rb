@@ -3,8 +3,9 @@ include OwnTestHelper
 
 describe "Rating" do
   let!(:brewery) { FactoryGirl.create :brewery, name:"Koff" }
-  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery }
-  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery }
+  let!(:style1) { FactoryGirl.create :style}
+  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery, style:style1 }
+  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery, style:style1 }
   let!(:user) { FactoryGirl.create :user }
 
   before :each do
@@ -32,7 +33,7 @@ describe "Rating" do
 
     visit user_path(user)
     expect{
-      page.all('a')[11].click
+      page.all('a')[12].click
     }.to change{Rating.count}.from(3).to(2)
 
     expect(page).to have_content "has made 2 ratings"

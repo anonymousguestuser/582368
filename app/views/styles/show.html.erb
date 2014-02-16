@@ -8,6 +8,8 @@
 <p>
   <%= @style.description %>
 </p>
+
+<% if @style.beers.size > 0 %>
 <p><h2>beers</h2></p>
 <ul>
   <% @style.beers.each do |beer| %>
@@ -16,3 +18,9 @@
       </li>
   <% end %>
 </ul>
+<% end %>
+
+<% if current_user %>
+    <%= link_to 'Edit', edit_style_path(@style) %><br>
+<% end %>
+<%= link_to 'Back', styles_path %>

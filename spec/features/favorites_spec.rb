@@ -5,9 +5,12 @@ describe "User's favorites" do
   let!(:user) { FactoryGirl.create :user }
   let!(:brewery1) { FactoryGirl.create(:brewery) }
   let!(:brewery2) { FactoryGirl.create(:brewery, name:"A. le Coq") }
-  let!(:beer1) { FactoryGirl.create(:beer, brewery:brewery1, style:"Lager") }
-  let!(:beer2) { FactoryGirl.create(:beer, brewery:brewery2, style:"IPA") }
-  let!(:beer3) { FactoryGirl.create(:beer, brewery:brewery2, style:"Stout") }
+  let!(:style1) {FactoryGirl.create(:style, name:"Lager")}
+  let!(:style2) {FactoryGirl.create(:style, name:"IPA")}
+  let!(:style3) {FactoryGirl.create(:style, name:"Stout")}
+  let!(:beer1) { FactoryGirl.create(:beer, brewery:brewery1, style:style1)}
+  let!(:beer2) { FactoryGirl.create(:beer, brewery:brewery2, style:style2)}
+  let!(:beer3) { FactoryGirl.create(:beer, brewery:brewery2, style:style3)}
 
   before :each do
     sign_in(username:"Pekka", password:"Foobar1")

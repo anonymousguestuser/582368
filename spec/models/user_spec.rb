@@ -89,15 +89,15 @@ end
     it "is the one with highest average ratings" do
       create_beers_with_ratings(1,9,user)
       create_beers_with_ratings_and_styles('IPA',user,6)
-      expect(user.favorite_style[0]).to eq('IPA')
+      expect(user.favorite_style[0].name).to eq('IPA')
     end
     it "includes all styles sharing the max score" do
       create_beers_with_ratings_and_styles('Lager',user,6,6,6)
       create_beers_with_ratings_and_styles('Pale Ale',user,9,3)
 
       expect(user.favorite_style.size).to eq(2)
-      expect(user.favorite_style).to include("Lager")
-      expect(user.favorite_style).to include ("Pale Ale")
+      expect(user.favorite_style.first.name).to include("Lager")
+      expect(user.favorite_style.last.name).to include ("Pale Ale")
     end
 end
 
@@ -139,7 +139,12 @@ end
 
 
   def create_beer_with_rating(score, user)
-    beer = FactoryGirl.create(:beer)
+    unless Style.first.nil?
+      style = Style.first
+    else
+      style = FactoryGirl.create :style
+    end
+      beer = FactoryGirl.create(:beer, style:style)
     FactoryGirl.create(:rating, score:score, beer:beer, user:user)
     beer
   end
@@ -151,15 +156,23 @@ end
   end
 
   def create_beers_with_ratings_and_styles(style, user, *scores)
+    beer_style = Style.find_by_name style
+    unless beer_style
+      beer_style = FactoryGirl.create(:style, name:style)
+    end
+    beer = FactoryGirl.create(:beer, style:beer_style)
     scores.each do |score|
-      beer = FactoryGirl.create(:beer, style:style)
       FactoryGirl.create(:rating, score:score, beer:beer, user:user)
     end
   end
 
 def create_beers_with_ratings_using_brewery(user, brewery, *scores)
+  style = Style.first
+  unless style
+    style = FactoryGirl.create :style
+  end
+  beer = FactoryGirl.create(:beer, brewery:brewery, style:style)
   scores.each do |score|
-    beer = FactoryGirl.create(:beer, brewery:brewery)
     FactoryGirl.create(:rating, score:score, beer:beer, user:user)
   end
 end
