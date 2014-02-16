@@ -1,5 +1,5 @@
 class StylesController < ApplicationController
-  before_action :set_style, only: [:show, :edit]
+  before_action :set_style, only: [:show, :edit, :update]
 
   def index
     @styles = Style.all
@@ -27,6 +27,18 @@ class StylesController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @style.update(style_params)
+        format.html { redirect_to @style, notice: 'Style was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @style.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
