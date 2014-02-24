@@ -33,7 +33,7 @@ describe "Rating" do
 
     visit user_path(user)
     expect{
-      page.all('a')[12].click
+      page.all('a')[14].click
     }.to change{Rating.count}.from(3).to(2)
 
     expect(page).to have_content "has made 2 ratings"
