@@ -1,11 +1,11 @@
 <h1>Listing breweries</h1>
 <p>Number of breweries: <%= @breweries.count %> </p>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Year</th>
+      <th><%= link_to 'Name', breweries_path(order:"name") %></th>
+      <th><%= link_to 'Year', breweries_path(order:"year") %></th>
       <th></th>
       <th></th>
       <th></th>
@@ -27,5 +27,5 @@
 <br>
 
 
-<%= link_to 'New Brewery', new_brewery_path if current_user%><br>
-<%= link_to 'List of beers', beers_path %>
+<%= link_to 'New Brewery', new_brewery_path, :class => "btn" if current_user%><br>
+<%= link_to 'List of beers', beers_path, :class => "btn" %>

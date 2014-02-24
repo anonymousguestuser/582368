@@ -70,3 +70,8 @@ end
 gem 'simplecov', require: false
 gem 'httparty'
 gem "rails-settings-cached", "0.3.1"
+
+gem 'bootstrap-sass'
+group :development do
+  gem 'rails_layout'
+end

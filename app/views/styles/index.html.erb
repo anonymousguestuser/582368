@@ -1,6 +1,6 @@
 <h1>Listing styles</h1>
 
-<table>
+<table class="table">
 <thead>
 <tr>
   <th>Style</th>
@@ -23,5 +23,5 @@
 </tbody>
 </table>
 <p>
-<%= link_to('New style', new_style_path) if current_user %>
+<%= link_to('New style', new_style_path, :class => "btn") if current_user %>
 </p>
